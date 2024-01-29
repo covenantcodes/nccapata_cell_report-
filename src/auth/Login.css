@@ -1,20 +1,21 @@
 .main-container{
-    border: 1px solid red;
     padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    
 }
 
 .login-container{
-    border: 1px solid blue;
+    border-radius: 1rem;
     width: 35%;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
 .welcome-text{
@@ -24,7 +25,6 @@
 }
 
 .logo-container{
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: center;
