@@ -1,0 +1,35 @@
+.main-container{
+    border: 1px solid red;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container{
+    border: 1px solid blue;
+    width: 35%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-text{
+    font-size: var(--heading-one-size);
+    font-weight: var(--heading-one-weight);
+    font-family: var(--heading-one);
+}
+
+.logo-container{
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container img{
+    width: 15%;
+}

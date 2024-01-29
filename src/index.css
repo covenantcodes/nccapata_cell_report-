@@ -5,8 +5,13 @@
   --secondary-color: #6c757d; /* Example secondary color */
 
   --main-font: 'Poppins', sans-serif;
+  --heading-one: 'Poppins';
+  --heading-one-size: 1.2rem;
+  --heading-one-weight: 600;
 }
 
 body{
   font-family: var(--main-font);
+  margin: 0;
+  padding: 0;
 }
