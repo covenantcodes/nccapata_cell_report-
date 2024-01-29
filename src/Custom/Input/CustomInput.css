@@ -1,5 +1,9 @@
+input{
+    border: none;
+}
+
 .custom-input {
-    margin: .5rem;
+    margin: 1rem;
   }
   
   .custom-input label {
@@ -10,16 +14,16 @@
   
   .custom-input input[type="text"] {
     padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #535252; /* Default border color (gray) */
     font-size: 16px;
-    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    border-bottom:1px solid var(--custom-grey);
+    transition: border-color 0.3s ease; 
   }
   
   /* Border color change on focus */
   .custom-input input[type="text"]:focus {
-    border-color: #007bff; /* Blue border color on focus */
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional: Add a box shadow */
+    border-radius: 3px;
+    border-color: #007bff;
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
   }
   

@@ -26,6 +26,9 @@ const Login = () => {
             children="Submit"
             bgcolor="var(--primary-color)"
             width="320px"
+            fontFamily="var(--main-font)"
+            fontSize="1rem"
+            marginTop="1rem"
         />
       </div>
     </div>

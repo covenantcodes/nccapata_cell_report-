@@ -6,6 +6,9 @@ interface Props {
   padding: string;
   radius: string;
   width: string;
+  fontFamily: string;
+  fontSize: string,
+  marginTop: string,
   onClick: () => void;
 }
 
@@ -17,6 +20,9 @@ const CustomButton: React.FC<Props> = ({
   padding,
   radius,
   width,
+  fontSize,
+  fontFamily,
+  marginTop,
   onClick,
 }) => {
   return (
@@ -28,7 +34,10 @@ const CustomButton: React.FC<Props> = ({
         padding: padding,
         border,
         borderRadius: radius,
-        width
+        width,
+        fontFamily,
+        fontSize,
+        marginTop
       }}
     >
       {children}
