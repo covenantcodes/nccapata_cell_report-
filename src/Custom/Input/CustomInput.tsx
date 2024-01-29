@@ -9,6 +9,7 @@ interface CustomInputProps {
 
 const CustomInput: React.FC<CustomInputProps> = ({ label, width }) => {
   const [value, setValue] = useState('');
+//   const [show, setShow] = true;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -22,7 +23,10 @@ const CustomInput: React.FC<CustomInputProps> = ({ label, width }) => {
         onChange={handleChange}
         style={{ width: width || '200px' }} 
         placeholder={label} 
+        
       />
+
+
     </div>
   );
 };

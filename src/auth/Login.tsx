@@ -13,7 +13,7 @@ const Login = () => {
 
         <div className="welcome-text">Welcome Back!</div>
 
-        <CustomInput label="Username" width="300px"/>
+        <CustomInput label="Username" width="300px"  />
 
         <CustomInput label="Password" width="300px"/>
 
