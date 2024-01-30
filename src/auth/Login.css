@@ -33,3 +33,30 @@
 .logo-container img{
     width: 15%;
 }
+
+.password-input-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -1rem;
+
+}
+
+.eyeIcon {
+    margin-left: -2.5rem;
+    color: var(--primary-color)
+}
+
+.eyeSlash {
+    margin-left: -2.5rem;
+    color: var(--custom-grey)
+}
+
+
+.forgot-password-container{
+    text-align: right;
+    font-size: .6rem;
+    font-style: italic;
+    width: 60%;
+    color: var(--primary-color);
+}

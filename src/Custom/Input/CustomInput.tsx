@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import './CustomInput.css'
-
+import React, { useState } from 'react';
+import './CustomInput.css';
 
 interface CustomInputProps {
   label: string;
-  width?: string; 
+  width?: string;
+  type?: string; // Add the type prop
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ label, width }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ label, width, type }) => {
   const [value, setValue] = useState('');
-//   const [show, setShow] = true;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -18,15 +17,12 @@ const CustomInput: React.FC<CustomInputProps> = ({ label, width }) => {
   return (
     <div className="custom-input">
       <input
-        type="text"
+        type={type || 'text'} // Use the provided type or default to 'text'
         value={value}
         onChange={handleChange}
-        style={{ width: width || '200px' }} 
-        placeholder={label} 
-        
+        style={{ width: width || '200px' }}
+        placeholder={label}
       />
-
-
     </div>
   );
 };

@@ -1,29 +1,32 @@
-input{
-    border: none;
+input {
+  border: none;
 }
 
 .custom-input {
-    margin: 1rem;
-  }
-  
-  .custom-input label {
-    display: block;
-    margin-bottom: 5px;
-    font-family: var(--font-family);
-  }
-  
-  .custom-input input[type="text"] {
-    padding: 8px;
-    font-size: 16px;
-    border-bottom:1px solid var(--custom-grey);
-    transition: border-color 0.3s ease; 
-  }
-  
-  /* Border color change on focus */
-  .custom-input input[type="text"]:focus {
-    border-radius: 3px;
-    border-color: #007bff;
-    outline: none; 
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-  }
-  
+  margin: 1rem;
+}
+
+.custom-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--font-family);
+}
+
+.custom-input input[type="text"],
+.custom-input input[type="password"] {
+
+  padding: 8px;
+  font-size: 16px;
+  border-bottom: 1px solid var(--custom-grey);
+  transition: border-color 0.3s ease;
+}
+
+/* Border color change on focus */
+.custom-input input[type="text"]:focus,
+.custom-input input[type="password"]:focus {
+  border-radius: 3px;
+  border: none;
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 3px var(--primary-color);
+}
