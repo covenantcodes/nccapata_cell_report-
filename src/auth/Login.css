@@ -59,4 +59,5 @@
     font-style: italic;
     width: 60%;
     color: var(--primary-color);
+    cursor: pointer;
 }

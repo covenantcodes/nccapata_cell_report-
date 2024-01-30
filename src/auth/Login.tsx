@@ -27,7 +27,7 @@ const Login = () => {
         <CustomInput label="Username" width="300px" />
 
         <div className="password-input-container">
-          <CustomInput label="Password" width="300px" type="password"/>
+          <CustomInput label="Password" width="300px" type={isEye ? "text": "password"}/>
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
                 <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
