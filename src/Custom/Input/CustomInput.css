@@ -24,9 +24,7 @@ input {
 /* Border color change on focus */
 .custom-input input[type="text"]:focus,
 .custom-input input[type="password"]:focus {
-  border-radius: 3px;
-  border: none;
-  border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 3px var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  box-shadow: 0 .5px 0px 0px var(--primary-color);
 }

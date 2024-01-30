@@ -1,6 +1,9 @@
+import "./Dashboard.css"
 const Dashboard = () => {
     return(
-        <div>This is a dix</div>
+        <div className="main-container">
+            dsnfkjd
+        </div>
     )
 }
 

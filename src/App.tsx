@@ -1,18 +1,16 @@
-// import { useState } from 'react'
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./auth/Login";
-import { Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 
 const App = () => {
   return (
-    <div>
+    <Router>
       <Routes>
-          <Route path="/src/auth/Login.tsx" Component={<Login/>}/>
-          <Route path="/src/Dashboard/Dashboard.tsx" Component={<Dashboard/>}/>
+        <Route path="/" element={<Login />} />
+        <Route path="/Dashboard" element={<Dashboard/>}/>
       </Routes>
-    </div>
-    // <Login />
+    </Router>
   );
 };
 

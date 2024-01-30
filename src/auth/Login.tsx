@@ -5,6 +5,7 @@ import CustomButton from "../Custom/Button/CustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // const eyeIcon = <FontAwesomeIcon className="eyeIcon" icon={faEye} />;
@@ -14,6 +15,15 @@ const Login = () => {
   const handleIconClick = () => {
     setIsEye((prevIsEye) => !prevIsEye);
   };
+
+  const navigate = useNavigate()
+
+  const handleLogin = () => {
+    console.log("Logging in...")
+
+    navigate('/Dashboard')
+  }
+
   return (
     <div className="main-container">
       <div className="login-container">
@@ -27,31 +37,35 @@ const Login = () => {
         <CustomInput label="Username" width="300px" />
 
         <div className="password-input-container">
-          <CustomInput label="Password" width="300px" type={isEye ? "text": "password"}/>
+          <CustomInput
+            label="Password"
+            width="300px"
+            type={!isEye ? "text" : "password"}
+          />
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
-                <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
-                ) : (
-                <FontAwesomeIcon className="eyeIcon" icon={faEye} />
+              <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
+            ) : (
+              <FontAwesomeIcon className="eyeIcon" icon={faEye} />
             )}
           </div>
         </div>
 
-        <div className="forgot-password-container">
-            forgot password?
-        </div>
+        <div className="forgot-password-container">forgot password?</div>
+
         <CustomButton
           border="none"
           color="white"
           padding="1rem"
-          onClick={() => console.log("Clicked!")}
+          onClick={handleLogin}
           radius="5px"
-          children="Submit"
+          label="Login"
           bgcolor="var(--primary-color)"
           width="320px"
           fontFamily="var(--main-font)"
           fontSize="1rem"
           marginTop="1rem"
+          cursor="pointer"
         />
       </div>
     </div>
