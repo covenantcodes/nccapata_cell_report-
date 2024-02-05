@@ -1,5 +1,16 @@
-.main-container{
+.dashboard-main-container{
     border: 1px solid red;
-    width: 10px;
-    height: 10px;
+}
+
+.dashboard-left-container{
+    border: 1px solid red;
+    width: 12%;
+    padding: 2rem;
+    height: 95vh;
+    /* background-color: var(--light-background-color); */
+}
+
+.title{
+    font-size: var(--heading-one-size);
+    font-weight: var(--heading-one-weight);
 }

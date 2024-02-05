@@ -60,3 +60,15 @@
     color: var(--primary-color);
     cursor: pointer;
 }
+
+.cta-register {
+    padding-top: 1rem;
+    font-size: 0.7rem;
+  }
+  
+  .cta-register span {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-style: italic;
+  }
+  

@@ -3,6 +3,7 @@
 :root {
   --primary-color: #403c9a; /* Example primary color */
   --secondary-color: #6c757d; /* Example secondary color */
+  --light-background-color: #bcf5f975;
 
   --main-font: 'Poppins', sans-serif;
   --heading-one: 'Poppins';

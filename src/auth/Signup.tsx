@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Login.css";
+import "./Signup.css";
 import CustomInput from "../Custom/Input/CustomInput";
 import CustomButton from "../Custom/Button/CustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,10 +25,6 @@ const Login = () => {
     navigate("/Dashboard");
   };
 
-  const handleNavigateRegister = () => {
-    navigate("/Register");
-  }
-
   return (
     <div className="main-container">
       <div className="login-container">
@@ -35,8 +32,12 @@ const Login = () => {
           <img src="../../img/church.png" alt="" />
         </div>
 
-        <div className="welcome-text">Welcome Back!</div>
-        <div className="motivation">...making disciples of all nations</div>
+        <div className="welcome-text">Create an Account</div>
+        {/* <div className="motivation">
+          Welcome to the Cell Leaders Reporting System
+        </div> */}
+
+        <CustomInput label="Email" width="300px" />
 
         <CustomInput label="Username" width="300px" />
 
@@ -63,7 +64,7 @@ const Login = () => {
           padding="1rem"
           onClick={handleLogin}
           radius="5px"
-          label="Login"
+          label="Register"
           bgcolor="var(--primary-color)"
           width="320px"
           fontFamily="var(--main-font)"
@@ -72,7 +73,7 @@ const Login = () => {
           cursor="pointer"
         />
 
-        <div className="cta-register" onClick={handleNavigateRegister}>
+        <div className="cta-register">
           Don't have an account? <span>Register</span>{" "}
         </div>
       </div>
