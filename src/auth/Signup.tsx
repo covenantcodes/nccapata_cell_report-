@@ -25,6 +25,10 @@ const Login = () => {
     navigate("/Dashboard");
   };
 
+  const handleNavigateLogin = () => {
+    navigate("/Login");
+  };
+
   return (
     <div className="main-container">
       <div className="login-container">
@@ -73,8 +77,8 @@ const Login = () => {
           cursor="pointer"
         />
 
-        <div className="cta-register">
-          Don't have an account? <span>Register</span>{" "}
+        <div className="cta-register" onClick={handleNavigateLogin}>
+          Don't have an account? <span>Login</span>{" "}
         </div>
       </div>
     </div>
