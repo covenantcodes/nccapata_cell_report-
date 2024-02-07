@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./Login.css";
 import "./Signup.css";
-import CustomInput from "../Custom/Input/CustomInput";
 import CustomButton from "../Custom/Button/CustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   // const eyeIcon = <FontAwesomeIcon className="eyeIcon" icon={faEye} />;
@@ -41,16 +41,16 @@ const Login = () => {
           Welcome to the Cell Leaders Reporting System
         </div> */}
 
-        <CustomInput label="Email" width="300px"/>
+        <div className="custom-input">
+          <input type="text" placeholder="Email" />
+        </div>
 
-        <CustomInput label="Username" width="300px" />
+        <div className="custom-input">
+          <input type="text" placeholder="Username" />
+        </div>
 
-        <div className="password-input-container">
-          <CustomInput
-            label="Password"
-            width="300px"
-            type={!isEye ? "text" : "password"}
-          />
+        <div className="password-input-container custom-input">
+              <input type="text" placeholder="Password" />
 
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
@@ -61,12 +61,9 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="password-input-container">
-          <CustomInput
-            label="Confirm Password"
-            width="300px"
-            type={!isEye ? "text" : "password"}
-          />
+        <div className="password-input-container custom-input">
+     
+              <input type="text" placeholder="Confirm Password" />
 
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
