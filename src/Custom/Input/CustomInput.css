@@ -6,6 +6,9 @@ input {
   margin: 1rem;
 }
 
+.custom-input input {
+  width: 300px;
+}
 .custom-input label {
   display: block;
   margin-bottom: 5px;
@@ -14,7 +17,6 @@ input {
 
 .custom-input input[type="text"],
 .custom-input input[type="password"] {
-
   padding: 8px;
   font-size: 16px;
   border-bottom: 1px solid var(--custom-grey);
@@ -26,5 +28,5 @@ input {
 .custom-input input[type="password"]:focus {
   outline: none;
   border-bottom: 1px solid var(--primary-color);
-  box-shadow: 0 .5px 0px 0px var(--primary-color);
+  box-shadow: 0 0.5px 0px 0px var(--primary-color);
 }

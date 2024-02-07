@@ -41,7 +41,7 @@ const Login = () => {
           Welcome to the Cell Leaders Reporting System
         </div> */}
 
-        <CustomInput label="Email" width="300px" />
+        <CustomInput label="Email" width="300px"/>
 
         <CustomInput label="Username" width="300px" />
 
@@ -51,6 +51,23 @@ const Login = () => {
             width="300px"
             type={!isEye ? "text" : "password"}
           />
+
+          <div className="eyeIcon-container" onClick={handleIconClick}>
+            {isEye ? (
+              <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
+            ) : (
+              <FontAwesomeIcon className="eyeIcon" icon={faEye} />
+            )}
+          </div>
+        </div>
+
+        <div className="password-input-container">
+          <CustomInput
+            label="Confirm Password"
+            width="300px"
+            type={!isEye ? "text" : "password"}
+          />
+
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
               <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />

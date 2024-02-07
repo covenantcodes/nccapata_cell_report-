@@ -1,15 +1,35 @@
 import { useState } from "react";
 import "./Login.css";
-import CustomInput from "../Custom/Input/CustomInput";
 import CustomButton from "../Custom/Button/CustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+// import {isEmail} from "validator"
 
 const Login = () => {
   // const eyeIcon = <FontAwesomeIcon className="eyeIcon" icon={faEye} />;
   // const eyeSlash = <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />;
+  // const required = value => {
+  //   if (!value) {
+  //     return (
+  //       <div className="required-text">
+  //           This field is required!
+  //       </div>
+  //     )
+  //   }
+  // }
+
+  // const email = value => {
+  //   if (!isEmail(value)) {
+  //     return (
+  //       <div className="required-text">
+  //           This is not a valid email.
+  //       </div>
+  //     );
+  //   }
+  // };
+
   const [isEye, setIsEye] = useState(true);
 
   const handleIconClick = () => {
@@ -26,7 +46,7 @@ const Login = () => {
 
   const handleNavigateRegister = () => {
     navigate("/Register");
-  }
+  };
 
   return (
     <div className="main-container">
@@ -37,15 +57,16 @@ const Login = () => {
 
         <div className="welcome-text">Welcome Back!</div>
         <div className="motivation">...making disciples of all nations</div>
+        
 
-        <CustomInput label="Username" width="300px" />
+        <div className="custom-input">
+          <input type="text" placeholder="Username" className="" />
+        </div>
 
-        <div className="password-input-container">
-          <CustomInput
-            label="Password"
-            width="300px"
-            type={!isEye ? "text" : "password"}
-          />
+        <div className="password-input-container custom-input">
+         
+
+          <input type="text" placeholder="Password" className="" />
           <div className="eyeIcon-container" onClick={handleIconClick}>
             {isEye ? (
               <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
