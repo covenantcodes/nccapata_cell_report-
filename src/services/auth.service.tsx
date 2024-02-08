@@ -1,42 +1,60 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
-interface User {
-  accessToken: string;
+interface UserData {
+  username: string;
+  email: string;
 }
-class AuthService {
-  login(username: string, password: string) {
-    return axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
 
-        return response.data;
-      });
-  }
+interface LoginResponse {
+  username: string;
+  // Add other properties as needed
+}
 
-  logout() {
-    localStorage.removeItem("user");
-  }
+const register = (username: string, email: string, password: string): Promise<AxiosResponse<UserData>> => {
+  return axios.post<UserData>(API_URL + "signup", {
+    username,
+    email,
+    password,
+  });
+};
 
-  register(username: string, email: string, password: string) {
-    return axios.post(API_URL + "signup", {
+const login = (username: string, password: string): Promise<LoginResponse> => {
+  return axios
+    .post<LoginResponse>(API_URL + "signin", {
       username,
-      email,
       password,
+    })
+    .then((response: AxiosResponse<LoginResponse>) => {
+      if (response.data.username) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+
+      return response.data;
     });
-  }
+};
 
-  getCurrentUser(): User | null {
-    const userString = localStorage.getItem("user");
-    return userString ? JSON.parse(userString) : null;
-  }
-}
+const logout = (): Promise<void> => {
+  localStorage.removeItem("user");
+  return axios.post(API_URL + "signout").then((response) => {
+    return response.data;
+  });
+};
 
-export default new AuthService();
+const getCurrentUser = (): UserData | null => {
+  const userString = localStorage.getItem("user");
+  if (userString) {
+    return JSON.parse(userString) as UserData;
+  }
+  return null;
+};
+
+const AuthService = {
+  register,
+  login,
+  logout,
+  getCurrentUser,
+};
+
+export default AuthService;

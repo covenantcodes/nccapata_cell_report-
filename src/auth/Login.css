@@ -33,6 +33,18 @@
   width: 15%;
 }
 
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  font-style: italic;
+  display: flex;
+  text-align: center;
+}
+
+.error-text.success {
+  color: rgb(3, 185, 3);
+}
+
 .password-input-container {
   display: flex;
   align-items: center;

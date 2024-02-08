@@ -9,11 +9,11 @@ interface Props {
   radius: string;
   width: string;
   fontFamily: string;
-  fontSize: string,
-  marginTop: string,
-  cursor: string,
+  fontSize: string;
+  marginTop: string;
+  cursor: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
-
+  disabled?: boolean; 
 }
 
 const CustomButton: React.FC<Props> = ({
@@ -29,10 +29,12 @@ const CustomButton: React.FC<Props> = ({
   marginTop,
   cursor,
   onClick,
+  disabled, 
 }) => {
   return (
     <button
       onClick={onClick}
+      disabled={disabled} 
       style={{
         backgroundColor: bgcolor,
         color: color,
