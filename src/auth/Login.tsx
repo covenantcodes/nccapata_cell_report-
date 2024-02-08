@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import AuthContext from "../context/AuthProvider.tsx";
 import "./Login.css";
 import "../Custom/Input/CustomInput.css";
 import CustomButton from "../Custom/Button/CustomButton";
@@ -7,8 +8,12 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 // import {isEmail} from "validator"
+import axios from "../api/axios.tsx";
+
+const LOGIN_URL = "/auth/signin";
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -35,15 +40,43 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSuccess(true);
-    console.log(user, pwd);
-    setUser("");
-    setPwd("");
-    setSuccess(true);
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data.roles;
+      setAuth({ user, pwd, roles, accessToken });
+      setSuccess(true);
+      setUser("");
+      setPwd("");
+      setSuccess(true);
 
-    // navigate("/Dashboard");
+      navigate("/Dashboard");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("Network error. Please try again later.");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+      if (userRef.current) {
+        userRef.current.focus();
+      }
+    }
   };
 
   const handleNavigateRegister = () => {
@@ -110,7 +143,7 @@ const Login = () => {
             border="none"
             color="white"
             padding="1rem"
-            onClick={() => handleLogin}
+            onClick={(e) => handleLogin(e)}
             radius="5px"
             label="Login"
             bgcolor="var(--primary-color)"

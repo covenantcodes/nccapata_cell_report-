@@ -1,3 +1,5 @@
+import { MouseEventHandler } from 'react';
+
 interface Props {
   border: string;
   bgcolor: string;
@@ -10,7 +12,8 @@ interface Props {
   fontSize: string,
   marginTop: string,
   cursor: string,
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+
 }
 
 const CustomButton: React.FC<Props> = ({

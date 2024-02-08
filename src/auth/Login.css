@@ -40,11 +40,13 @@
 }
 
 .eyeIcon {
+  cursor: pointer;
   margin-left: -1.8rem;
   color: var(--primary-color);
 }
 
 .eyeSlash {
+  cursor: pointer;
   margin-left: -1.8rem;
   color: var(--custom-grey);
 }
