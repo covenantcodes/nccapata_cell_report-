@@ -74,19 +74,19 @@ const SideBar = () => {
             My Cells{" "}
           </MenuItem>
           <MenuItem
-            component={<Link to="disciples" className="link" />}
+            component={<Link to="/Disciples" className="link" />}
             icon={<MonetizationOnRoundedIcon />}
           >
             My Disciples
           </MenuItem>
           <MenuItem
-            component={<Link to="attendance" className="link" />}
+            component={<Link to="/Attendance" className="link" />}
             icon={<MonetizationOnRoundedIcon />}
           >
             Attendance
           </MenuItem>
           <MenuItem
-            component={<Link to="Profile" className="link" />}
+            component={<Link to="/Profile" className="link" />}
             icon={<MonetizationOnRoundedIcon />}
           >
             Profile
