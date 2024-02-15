@@ -1,0 +1,22 @@
+.sidebar-main {
+}
+
+.sidebar-title {
+  text-align: center;
+  padding-left: 0.5rem;
+  color: white;
+}
+
+.sidelogo-container {
+  display: flex;
+  padding-left: 1rem;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+
+.sidelogo-container img {
+  width: 25%;
+}

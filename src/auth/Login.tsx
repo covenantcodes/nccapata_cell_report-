@@ -7,19 +7,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-// import {isEmail} from "validator"
+
+import loadingGif from "../../img/loader.gif";
 
 const Login = () => {
   const [isEye, setIsEye] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const handleIconClick = () => {
     setIsEye((prevIsEye) => !prevIsEye);
   };
 
-  const navigate = useNavigate();
 
   const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     const username = e.target.value;
@@ -36,12 +39,16 @@ const Login = () => {
 
     setMessage(message);
 
+    setIsLoading(true); // Show loading indicator when login button is pressed
+
     AuthService.login(username, password).then(
       () => {
-        navigate("/Dashboard");
-        window.location.reload();
+        setIsLoading(false); // Hide loading indicator on successful login
+         navigate("/Dashboard"); 
       },
       (error) => {
+        setIsLoading(false); // Hide loading indicator on login error
+
         const resMessage =
           (error.response &&
             error.response.data &&
@@ -54,13 +61,17 @@ const Login = () => {
     );
   };
 
+
   const handleNavigateRegister = () => {
     navigate("/Register");
   };
 
+
+
   return (
     <div className="main-container">
-      <div className="login-container">
+      {isLoading ? null : (
+        <div className="login-container">
         <div className="logo-container">
           <img src="../../img/church.png" alt="" />
         </div>
@@ -118,6 +129,15 @@ const Login = () => {
           Don't have an account? <span>Register</span>{" "}
         </div>
       </div>
+      )}
+
+      {/* Loading Modal */}
+      {isLoading && (
+        <div className="loading-modal">
+          <div className="loading-spinner"></div>
+            <img src={loadingGif} alt="Loading...." />
+        </div>
+      )}
     </div>
   );
 };
