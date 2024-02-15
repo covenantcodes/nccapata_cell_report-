@@ -20,3 +20,11 @@
 .sidelogo-container img {
   width: 25%;
 }
+
+.sidebar-menuitem {
+  color: white;
+}
+
+.sidebar-menuitem:hover {
+  color: var(--primary-color);
+}

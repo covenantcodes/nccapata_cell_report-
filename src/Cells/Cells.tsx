@@ -3,9 +3,9 @@ import SideBar from "../Custom/Sidebar/Sidebar";
 const Cells = () => {
   return (
     <div>
-      <SideBar />
+      {/* <SideBar /> */}
       <div className="main-container">
-            
+
       </div>
       This is cells
     </div>

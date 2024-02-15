@@ -14,6 +14,12 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 import { Link } from "react-router-dom";
 
+// import Cells from "../../Cells/Cells";
+// import Attendance from "../../Attendance/Attendance";
+// import Disciples from "../../Disciples/Disciples";
+// import Profile from "../../Profile/Profile";
+// import Dashboard from "../../Dashboard/Dashboard";
+
 interface MenuItemStyles {
   root?: ElementStyles;
   button?: ElementStyles;
@@ -31,7 +37,13 @@ type ElementStyles =
 
 const SideBar = () => {
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        width: "17%",
+      }}
+    >
       <Sidebar
         className="sidebar-main"
         rootStyles={{
@@ -40,17 +52,7 @@ const SideBar = () => {
           },
         }}
       >
-        <Menu
-          menuItemStyles={{
-            button: ({ level, active, disabled }) => {
-              if (level === 0)
-                return {
-                  color: disabled ? "#f5d9ff" : "#fff",
-                  backgroundColor: active ? "#eecef9" : undefined,
-                };
-            },
-          }}
-        >
+        <Menu>
           <div className="sidelogo-container">
             <img
               src="../../../img/church.png"
@@ -60,39 +62,45 @@ const SideBar = () => {
             <div className="sidebar-title">NCCAMC CRS</div>
           </div>
           <MenuItem
-            component={<Link to="/Dashboard" className="link" />}
+            className="sidebar-menuitem"
+            component={<Link to="/Dashboard" className="sidebar-menuitem" />}
             icon={<GridViewRoundedIcon />}
           >
             {" "}
             Dashboard{" "}
           </MenuItem>
           <MenuItem
-            component={<Link to="/Cells" className="link" />}
+            className="sidebar-menuitem"
+            component={<Link to="/Cells" className="sidebar-menuitem" />}
             icon={<ReceiptRoundedIcon />}
           >
             {" "}
             My Cells{" "}
           </MenuItem>
           <MenuItem
-            component={<Link to="/Disciples" className="link" />}
+            className="sidebar-menuitem"
+            component={<Link to="/Disciples" className="sidebar-menuitem" />}
             icon={<MonetizationOnRoundedIcon />}
           >
             My Disciples
           </MenuItem>
           <MenuItem
-            component={<Link to="/Attendance" className="link" />}
-            icon={<MonetizationOnRoundedIcon />}
+            className="sidebar-menuitem"
+            component={<Link to="/Attendance" className="sidebar-menuitem" />}
+            icon={<ReceiptRoundedIcon />}
           >
             Attendance
           </MenuItem>
           <MenuItem
-            component={<Link to="/Profile" className="link" />}
+            className="sidebar-menuitem"
+            component={<Link to="/Profile" className="sidebar-menuitem" />}
             icon={<MonetizationOnRoundedIcon />}
           >
             Profile
           </MenuItem>
           <MenuItem
-            component={<Link to="dashboard" className="link" />}
+            className="sidebar-menuitem"
+            component={<Link to="dashboard" className="sidebar-menuitem" />}
             icon={<LogoutRoundedIcon />}
           >
             {" "}
