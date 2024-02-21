@@ -12,8 +12,10 @@ interface Props {
   fontSize: string;
   marginTop: string;
   cursor: string;
+  type?: "button" | "submit" | "reset";
   onClick: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean; 
+
 }
 
 const CustomButton: React.FC<Props> = ({
@@ -45,7 +47,7 @@ const CustomButton: React.FC<Props> = ({
         fontFamily,
         fontSize,
         marginTop,
-        cursor
+        cursor,
       }}
     >
       {label}

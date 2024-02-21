@@ -3,9 +3,9 @@ import "./Disciples.css";
 
 const Disciples = () => {
   return (
-    <div className="main-main">
+    <div className="disciples-main-container">
       <SideBar />
-      <div>daojkladlkkl</div>
+      <div>This is Disciples</div>
     </div>
   );
 };

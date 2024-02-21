@@ -30,3 +30,18 @@ input {
   border-bottom: 1px solid var(--primary-color);
   box-shadow: 0 0.5px 0px 0px var(--primary-color);
 }
+
+.custom-input select {
+  width: 320px;
+  border: none;
+  color: #747474;
+  border-bottom: 1px solid var(--custom-grey);
+  padding-top: 1rem;
+  font-size: 15px;
+  padding-bottom: 1rem;
+  font-family: var(--font-family);
+}
+
+.custom-input select:focus {
+  outline: none;
+}

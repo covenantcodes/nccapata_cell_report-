@@ -8,9 +8,11 @@ import {
 import "./Sidebar.css";
 import { CSSObject } from "@mui/material";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
-import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import PersonIcon from "@mui/icons-material/Person";
+import ExploreIcon from "@mui/icons-material/Explore";
 
 import { Link } from "react-router-dom";
 
@@ -72,7 +74,7 @@ const SideBar = () => {
           <MenuItem
             className="sidebar-menuitem"
             component={<Link to="/Cells" className="sidebar-menuitem" />}
-            icon={<ReceiptRoundedIcon />}
+            icon={<ExploreIcon />}
           >
             {" "}
             My Cells{" "}
@@ -80,21 +82,21 @@ const SideBar = () => {
           <MenuItem
             className="sidebar-menuitem"
             component={<Link to="/Disciples" className="sidebar-menuitem" />}
-            icon={<MonetizationOnRoundedIcon />}
+            icon={<PeopleAltIcon />}
           >
             My Disciples
           </MenuItem>
           <MenuItem
             className="sidebar-menuitem"
             component={<Link to="/Attendance" className="sidebar-menuitem" />}
-            icon={<ReceiptRoundedIcon />}
+            icon={<FactCheckIcon />}
           >
             Attendance
           </MenuItem>
           <MenuItem
             className="sidebar-menuitem"
             component={<Link to="/Profile" className="sidebar-menuitem" />}
-            icon={<MonetizationOnRoundedIcon />}
+            icon={<PersonIcon />}
           >
             Profile
           </MenuItem>

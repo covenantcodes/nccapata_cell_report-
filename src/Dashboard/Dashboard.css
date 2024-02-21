@@ -1,3 +1,101 @@
 .dashboard-main-container {
   display: flex;
 }
+
+.dashboard-container {
+  width: 83%;
+  padding: 2rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+.total-summary-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-summary-box {
+  width: 20%;
+  padding: 0.5rem;
+  border-radius: 0.8rem;
+}
+
+.total-summary-box:nth-child(1) {
+  background-color: #1671fa; /* Blue */
+}
+
+.total-summary-box:nth-child(2) {
+  background-color: #ff6347; /* Tomato */
+}
+
+.total-summary-box:nth-child(3) {
+  background-color: #32cd32; /* LimeGreen */
+}
+
+.total-summary-box:nth-child(4) {
+  background-color: #ff7b00; /* Gold */
+}
+
+.icon-box {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.icon-box:nth-child(1) {
+  color: #1671fa;
+}
+
+.icon-box:nth-child(2) {
+  color: #ff6347; /* Tomato */
+}
+
+.icon-box:nth-child(3) {
+  color: #32cd32; /* LimeGreen */
+}
+
+.icon-box:nth-child(4) {
+  color: #ffd700; /* Gold */
+}
+
+.total-summary-title {
+  padding-top: 0.7rem;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.total-summary-number-container {
+  display: flex;
+  align-items: center;
+}
+
+.total-summary-number {
+  font-family: "Protest Riot", sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  color: white;
+}
+
+.total-summary-caption {
+  font-size: 0.8rem;
+  color: white;
+  padding-top: 1rem;
+}
+
+.charts-container {
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}

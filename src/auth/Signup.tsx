@@ -7,6 +7,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import loadingGif from "../../img/loader.gif";
 
 import AuthService from "../services/auth.service";
 
@@ -22,6 +23,7 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);
   const [successful, setSuccessful] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -100,6 +102,7 @@ const Signup = () => {
     e.preventDefault();
 
     setMessage("");
+    setIsLoading(true);
     setSuccessful(false);
 
     // Validate password strength and match
@@ -126,6 +129,7 @@ const Signup = () => {
       (response) => {
         // Check if the response data structure includes a 'message' property
         if (response.data && response.data.message) {
+          setIsLoading(false);
           setMessage(response.data.message);
           setSuccessful(true);
         } else {
@@ -135,6 +139,8 @@ const Signup = () => {
         }
       },
       (error) => {
+        setIsLoading(false);
+
         const resMessage =
           (error.response &&
             error.response.data &&
@@ -155,11 +161,9 @@ const Signup = () => {
     }
   }, [successful, navigate]);
 
-  
   const handleIconClick = () => {
     setIsEye((prevIsEye) => !prevIsEye);
   };
-
 
   const handleNavigateLogin = () => {
     navigate("/Login");
@@ -167,100 +171,110 @@ const Signup = () => {
 
   return (
     <div className="main-container">
-      <div className="login-container">
-        <div className="logo-container">
-          <img src="../../img/church.png" alt="" />
-        </div>
+      {isLoading ? null : (
+        <div className="login-container">
+          <div className="logo-container">
+            <img src="../../img/church.png" alt="" />
+          </div>
 
-        <div className="welcome-text">Create an Account</div>
-        {/* <div className="motivation">
+          <div className="welcome-text">Create an Account</div>
+          {/* <div className="motivation">
           Welcome to the Cell Leaders Reporting System
         </div> */}
 
-        <div
-          className={`error-text ${
-            message.includes("successfully") ? "success" : ""
-          }`}
-        >
-          {message}
-        </div>
+          <div
+            className={`error-text ${
+              message.includes("successfully") ? "success" : ""
+            }`}
+          >
+            {message}
+          </div>
 
-        <div className="custom-input">
-          <input
-            type="text"
-            placeholder="Email"
-            autoComplete="off"
-            onChange={handleEmailChange}
-            value={email}
-            required
-          />
-          {emailError && <div className="error-text">{emailError}</div>}
-        </div>
-        <div className="custom-input">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={handleUsernameChange}
-          />
-        </div>
+          <div className="custom-input">
+            <input
+              type="text"
+              placeholder="Email"
+              autoComplete="off"
+              onChange={handleEmailChange}
+              value={email}
+              required
+            />
+            {emailError && <div className="error-text">{emailError}</div>}
+          </div>
+          <div className="custom-input">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
 
-        <div className="password-input-container custom-input">
-          <input
-            type={isEye ? "password" : "text"}
-            placeholder="Password"
-            required
-            value={password}
-            onChange={handlePasswordChange}
+          <div className="password-input-container custom-input">
+            <input
+              type={isEye ? "password" : "text"}
+              placeholder="Password"
+              required
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <div className="eyeIcon-container" onClick={handleIconClick}>
+              {isEye ? (
+                <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon className="eyeIcon" icon={faEye} />
+              )}
+            </div>
+          </div>
+          <div className="password-input-container custom-input">
+            <input
+              type={isEye ? "password" : "text"}
+              placeholder="Confirm Password"
+              required
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+            />
+            <div className="eyeIcon-container" onClick={handleIconClick}>
+              {isEye ? (
+                <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon className="eyeIcon" icon={faEye} />
+              )}
+            </div>
+          </div>
+
+          <div className="forgot-password-container">forgot password?</div>
+
+          <CustomButton
+            border="none"
+            color="white"
+            padding="1rem"
+            onClick={handleRegister}
+            radius="5px"
+            label="Register"
+            bgcolor="var(--primary-color)"
+            width="320px"
+            fontFamily="var(--main-font)"
+            fontSize="1rem"
+            marginTop="1rem"
+            cursor="pointer"
+            disabled={hasError}
           />
-          <div className="eyeIcon-container" onClick={handleIconClick}>
-            {isEye ? (
-              <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
-            ) : (
-              <FontAwesomeIcon className="eyeIcon" icon={faEye} />
-            )}
+          {errorMessage && <div className="error-text">{errorMessage}</div>}
+
+          <div className="cta-register" onClick={handleNavigateLogin}>
+            Don't have an account? <span>Login</span>{" "}
           </div>
         </div>
-        <div className="password-input-container custom-input">
-          <input
-            type={isEye ? "password" : "text"}
-            placeholder="Confirm Password"
-            required
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-          />
-          <div className="eyeIcon-container" onClick={handleIconClick}>
-            {isEye ? (
-              <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
-            ) : (
-              <FontAwesomeIcon className="eyeIcon" icon={faEye} />
-            )}
-          </div>
+      )}
+
+      {/* Loading Modal */}
+      {isLoading && (
+        <div className="loading-modal">
+          <div className="loading-spinner"></div>
+          <img src={loadingGif} alt="Loading...." />
         </div>
-
-        <div className="forgot-password-container">forgot password?</div>
-
-        <CustomButton
-          border="none"
-          color="white"
-          padding="1rem"
-          onClick={handleRegister}
-          radius="5px"
-          label="Register"
-          bgcolor="var(--primary-color)"
-          width="320px"
-          fontFamily="var(--main-font)"
-          fontSize="1rem"
-          marginTop="1rem"
-          cursor="pointer"
-          disabled={hasError}
-        />
-        {errorMessage && <div className="error-text">{errorMessage}</div>}
-
-        <div className="cta-register" onClick={handleNavigateLogin}>
-          Don't have an account? <span>Login</span>{" "}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
