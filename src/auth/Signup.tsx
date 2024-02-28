@@ -7,9 +7,10 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
-import loadingGif from "../../img/loader.gif";
 
 import AuthService from "../services/auth.service";
+
+import loadingGif from "../../img/loader.gif";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [username, setUsername] = useState("");
+  const [role, setRole] = useState("user"); // Default role is "user"
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,6 +44,13 @@ const Signup = () => {
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
+    setErrorMessage(""); // Clear error message
+    setHasError(false); // Clear hasError flag
+    setSuccessful(false); // Clear successful flag
+  };
+
+  const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRole(e.target.value);
     setErrorMessage(""); // Clear error message
     setHasError(false); // Clear hasError flag
     setSuccessful(false); // Clear successful flag
@@ -102,7 +111,6 @@ const Signup = () => {
     e.preventDefault();
 
     setMessage("");
-    setIsLoading(true);
     setSuccessful(false);
 
     // Validate password strength and match
@@ -123,13 +131,14 @@ const Signup = () => {
     // Clear any previous error messages if password meets criteria
     setErrorMessage("");
     setHasError(false);
+    setIsLoading(true);
 
     // Check for duplicate username or email
-    AuthService.register(username, email, password).then(
+    AuthService.register(username, email, password, role).then(
       (response) => {
+        setIsLoading(false);
         // Check if the response data structure includes a 'message' property
         if (response.data && response.data.message) {
-          setIsLoading(false);
           setMessage(response.data.message);
           setSuccessful(true);
         } else {
@@ -241,6 +250,14 @@ const Signup = () => {
                 <FontAwesomeIcon className="eyeIcon" icon={faEye} />
               )}
             </div>
+          </div>
+
+          <div className="password-input-container custom-input">
+            <select name="role" value={role} onChange={handleRoleChange}>
+              <option value="user">User</option>
+              <option value="moderator">Moderator</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
 
           <div className="forgot-password-container">forgot password?</div>

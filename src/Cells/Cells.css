@@ -1,6 +1,7 @@
 .cells-main-container {
   display: flex;
 }
+
 .cells-container {
   width: 83%;
   padding: 2rem;
@@ -14,12 +15,13 @@
 
 .cells-box-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1rem;
   padding-top: 1rem;
 }
 
 .cells-box {
-  margin: 0rem 2rem 1rem 0rem;
-  width: 20%;
+  flex: 1 1 calc(25% - 2rem);
   padding: 1rem;
   border-radius: 0.8rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -32,8 +34,7 @@
 }
 
 .add-cell-box {
-  margin: 0rem 1rem 1rem 0rem;
-  width: 20%;
+  flex: 1 1 calc(25% - 2rem);
   padding: 1rem;
   border-radius: 0.8rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -45,7 +46,7 @@
 }
 
 .add-cell-box:hover {
-  transform: scale(1.05);
+  transform: scale(0.98);
   transition: all 0.3s ease;
 }
 
@@ -55,12 +56,21 @@
   padding-bottom: 1rem;
   display: flex;
   align-items: center;
+  padding-left: 0.5rem;
+
 }
 
 .cells-location {
   font-size: 0.8rem;
   display: flex;
   align-items: center;
+}
+
+.cells-type {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
 }
 
 .modal-container {

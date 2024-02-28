@@ -17,7 +17,7 @@ interface AuthContextType {
 
 // Initialize context with empty values
 const initialAuthContext: AuthContextType = {
-  auth: { user: "" }, // Initialize with empty user, adjust as needed
+  auth: { user: "", pwd: "", roles: "", accessToken: ""}, // Initialize with empty user, adjust as needed
   setAuth: () => {}, // Provide a default function for setAuth
 };
 
@@ -28,7 +28,12 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [auth, setAuth] = useState<AuthData>({ user: "" }); // Initialize with empty user, adjust as needed
+  const [auth, setAuth] = useState<AuthData>({
+    user: "",
+    pwd: "",
+    roles: "",
+    accessToken: "",
+  }); // Initialize with empty user, adjust as needed
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
@@ -36,6 +41,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
 
 export default AuthContext;
