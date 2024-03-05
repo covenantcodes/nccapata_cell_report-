@@ -13,14 +13,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PersonIcon from "@mui/icons-material/Person";
 import ExploreIcon from "@mui/icons-material/Explore";
-
-import { Link } from "react-router-dom";
-
-// import Cells from "../../Cells/Cells";
-// import Attendance from "../../Attendance/Attendance";
-// import Disciples from "../../Disciples/Disciples";
-// import Profile from "../../Profile/Profile";
-// import Dashboard from "../../Dashboard/Dashboard";
+import { Link, useNavigate } from "react-router-dom";
 
 interface MenuItemStyles {
   root?: ElementStyles;
@@ -38,12 +31,25 @@ type ElementStyles =
   | ((params: MenuItemStyles) => CSSObject | undefined);
 
 const SideBar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
+
   return (
     <div
       style={{
         display: "flex",
-        height: "100vh",
+        position: "fixed",
+        top: 0,
+        bottom: 0,
+        left: 0,
         width: "17%",
+        overflowX: "hidden",
+        backgroundColor: "rgba(11, 41, 72, 0.961)",
+        zIndex: 1000,
       }}
     >
       <Sidebar
@@ -102,8 +108,8 @@ const SideBar = () => {
           </MenuItem>
           <MenuItem
             className="sidebar-menuitem"
-            component={<Link to="dashboard" className="sidebar-menuitem" />}
             icon={<LogoutRoundedIcon />}
+            onClick={handleLogout}
           >
             {" "}
             Logout{" "}

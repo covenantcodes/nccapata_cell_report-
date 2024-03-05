@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 const API_URL = "http://localhost:8080/api/auth/";
 
 interface UserData {
+  userId: string;
   username: string;
   email: string;
   message: string;
@@ -27,21 +28,6 @@ const register = (
   });
 };
 
-// const login = (username: string, password: string): Promise<LoginResponse> => {
-//   return axios
-//     .post<LoginResponse>(API_URL + "signin", {
-//       username,
-//       password,
-//     })
-//     .then((response: AxiosResponse<LoginResponse>) => {
-//       if (response.data.username) {
-//         localStorage.setItem("user", JSON.stringify(response.data));
-//       }
-//       console.log(response.data);
-//       return response.data;
-//     });
-// };
-
 const login = (username: string, password: string): Promise<LoginResponse> => {
   return axios
     .post<LoginResponse>(API_URL + "signin", {
@@ -61,7 +47,8 @@ const login = (username: string, password: string): Promise<LoginResponse> => {
 
 const logout = (): Promise<void> => {
   localStorage.removeItem("user");
-  return axios.post(API_URL + "signout").then((response) => {
+  localStorage.removeItem("accessToken");
+  return axios.post<void>(API_URL + "signout").then((response) => {
     return response.data;
   });
 };
@@ -74,11 +61,18 @@ const getCurrentUser = (): UserData | null => {
   return null;
 };
 
+const isAuthenticated = (): boolean => {
+  const userString = localStorage.getItem("user");
+  const accessToken = localStorage.getItem("accessToken");
+  return !!userString && !!accessToken;
+};
+
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  isAuthenticated,
 };
 
 export default AuthService;

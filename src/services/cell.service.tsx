@@ -36,19 +36,18 @@ const AddNewCell = (
 
 const getCellsByUserId = (userId: string) => {
   const accessToken = localStorage.getItem("accessToken");
-  console.log(accessToken)
   if (!accessToken) {
     throw new Error("Access token not found");
   }
 
   const headers = {
-    Authorization: `Bearer ${accessToken}`,
+    "x-access-token": accessToken, // Custom header
   };
 
   return axios
     .get<CellData[]>(API_URL + `cells/${userId}`, { headers })
     .then((response: AxiosResponse<CellData[]>) => {
-      return response.data; 
+      return response.data;
     })
     .catch((error) => {
       throw new Error("Failed to get cells by user ID: " + error.message);

@@ -18,11 +18,9 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-
   const handleIconClick = () => {
     setIsEye((prevIsEye) => !prevIsEye);
   };
-
 
   const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     const username = e.target.value;
@@ -44,7 +42,7 @@ const Login = () => {
     AuthService.login(username, password).then(
       () => {
         setIsLoading(false); // Hide loading indicator on successful login
-         navigate("/Dashboard"); 
+        navigate("/Dashboard");
       },
       (error) => {
         setIsLoading(false); // Hide loading indicator on login error
@@ -61,81 +59,78 @@ const Login = () => {
     );
   };
 
-
   const handleNavigateRegister = () => {
     navigate("/Register");
   };
-
-
 
   return (
     <div className="main-container">
       {isLoading ? null : (
         <div className="login-container">
-        <div className="logo-container">
-          <img src="../../img/church.png" alt="" />
-        </div>
+          <div className="logo-container">
+            <img src="../../img/church.png" alt="" />
+          </div>
 
-        <div className="welcome-text">Welcome Back!</div>
-        <div className="motivation">...making disciples of all nations</div>
-        <p className="error-text">{message}</p>
-        <div className="custom-input">
-          <input
-            type="text"
-            placeholder="Username"
-            autoComplete="off"
-            onChange={onChangeUsername}
-            value={username}
-            required
-          />
-        </div>
+          <div className="welcome-text">Welcome Back!</div>
+          <div className="motivation">...making disciples of all nations</div>
+          <p className="error-text">{message}</p>
+          <div className="custom-input">
+            <input
+              type="text"
+              placeholder="Username"
+              autoComplete="off"
+              onChange={onChangeUsername}
+              value={username}
+              required
+            />
+          </div>
 
-        <div className="password-input-container custom-input">
-          <input
-            type={isEye ? "password" : "text"}
-            placeholder="Password"
-            id="password"
-            onChange={onChangePassword}
-            value={password}
-            required
+          <div className="password-input-container custom-input">
+            <input
+              type={isEye ? "password" : "text"}
+              placeholder="Password"
+              id="password"
+              onChange={onChangePassword}
+              value={password}
+              required
+            />
+            <div className="eyeIcon-container" onClick={handleIconClick}>
+              {isEye ? (
+                <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon className="eyeIcon" icon={faEye} />
+              )}
+            </div>
+          </div>
+
+          <div className="forgot-password-container">forgot password?</div>
+
+          <CustomButton
+            border="none"
+            color="white"
+            padding="1rem"
+            onClick={handleLogin}
+            radius="5px"
+            label="Login"
+            bgcolor="var(--primary-color)"
+            width="320px"
+            fontFamily="var(--main-font)"
+            fontSize="1rem"
+            marginTop="1rem"
+            cursor="pointer"
           />
-          <div className="eyeIcon-container" onClick={handleIconClick}>
-            {isEye ? (
-              <FontAwesomeIcon className="eyeSlash" icon={faEyeSlash} />
-            ) : (
-              <FontAwesomeIcon className="eyeIcon" icon={faEye} />
-            )}
+
+          <div className="cta-register" onClick={handleNavigateRegister}>
+            Don't have an account? <span>Register</span>{" "}
           </div>
         </div>
-
-        <div className="forgot-password-container">forgot password?</div>
-
-        <CustomButton
-          border="none"
-          color="white"
-          padding="1rem"
-          onClick={handleLogin}
-          radius="5px"
-          label="Login"
-          bgcolor="var(--primary-color)"
-          width="320px"
-          fontFamily="var(--main-font)"
-          fontSize="1rem"
-          marginTop="1rem"
-          cursor="pointer"
-        />
-
-        <div className="cta-register" onClick={handleNavigateRegister}>
-          Don't have an account? <span>Register</span>{" "}
-        </div>
-      </div>
       )}
 
       {/* Loading Modal */}
       {isLoading && (
         <div className="loading-modal">
           <div className="loading-spinner"></div>
-            <img src={loadingGif} alt="Loading...." />
+          <img src={loadingGif} alt="Loading...." />
         </div>
       )}
     </div>

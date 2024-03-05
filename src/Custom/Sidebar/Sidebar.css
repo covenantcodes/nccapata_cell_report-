@@ -25,3 +25,10 @@
 .sidebar-menuitem:hover {
   color: var(--primary-color);
 }
+
+.ps-sidebar-root.sidebar-main.css-1l4lsha {
+  border: none !important;
+  border-right: none !important;
+}
+
+

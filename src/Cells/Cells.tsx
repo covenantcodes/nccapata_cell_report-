@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import CustomButton from "../Custom/Button/CustomButton";
 import CellService, { CellData } from "../services/cell.service";
 import loadingGif from "../../img/loader.gif";
+import networkGif from "../../img/network.gif";
 
 interface CellProps {
   userId: string;
@@ -42,10 +43,10 @@ const Cells: React.FC<CellProps> = () => {
     try {
       const userId = getUserId();
       const userCells = await CellService.getCellsByUserId(userId);
-
       setCells(userCells);
     } catch (error) {
       console.error("Error fetching cells:", error);
+      setError("Error fetching cells. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -121,7 +122,13 @@ const Cells: React.FC<CellProps> = () => {
             <img src={loadingGif} alt="Loading...." />
           </div>
         )}
-        {error && <p>Error</p>}
+        {error && (
+          <div className="loading-modal">
+            <div className="loading-spinner"></div>
+            <img src={networkGif} alt="...." className="error-gif" />
+            <div className="error-label">Network Error</div>
+          </div>
+        )}
         {!isLoading && !error && (
           <div className="cells-box-container">
             {/* Map through cells and display each cell */}
@@ -194,7 +201,7 @@ const Cells: React.FC<CellProps> = () => {
                   padding="1rem"
                   radius="5px"
                   label="Add Cell"
-                  bgcolor="var(--primary-color)"
+                bgcolor="var(--primary-color)"
                   width="320px"
                   fontFamily="var(--main-font)"
                   fontSize="1rem"
