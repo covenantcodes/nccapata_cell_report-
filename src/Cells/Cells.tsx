@@ -3,6 +3,7 @@ import SideBar from "../Custom/Sidebar/Sidebar";
 import "./cells.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 import CustomButton from "../Custom/Button/CustomButton";
 import CellService, { CellData } from "../services/cell.service";
@@ -159,7 +160,15 @@ const Cells: React.FC<CellProps> = () => {
       <Modal open={isModalOpen} onClose={closeModal}>
         <div className="modal-container">
           <div className="modal-form">
-            <div className="page-title">Add a Cell</div>
+            <div className="close-modal-button">
+              {" "}
+              <CloseIcon fontSize="large" className="close-button"
+                onClick={()=> closeModal()}
+              />
+            </div>
+            <div className="modal-top">
+              <div className="page-title">Add a Cell</div>
+            </div>
             <div>
               <div>
                 <div className="password-input-container custom-input">
@@ -195,20 +204,22 @@ const Cells: React.FC<CellProps> = () => {
                   />
                 </div>
 
-                <CustomButton
-                  border="none"
-                  color="white"
-                  padding="1rem"
-                  radius="5px"
-                  label="Add Cell"
-                bgcolor="var(--primary-color)"
-                  width="320px"
-                  fontFamily="var(--main-font)"
-                  fontSize="1rem"
-                  marginTop="1rem"
-                  cursor="pointer"
-                  onClick={handleAddCell}
-                />
+                <div className="custom-button-container">
+                  <CustomButton
+                    border="none"
+                    color="white"
+                    padding="1rem"
+                    radius="5px"
+                    label="Add Cell"
+                    bgcolor="var(--primary-color)"
+                    width="320px"
+                    fontFamily="var(--main-font)"
+                    fontSize="1rem"
+                    marginTop="1rem"
+                    cursor="pointer"
+                    onClick={handleAddCell}
+                  />
+                </div>
               </div>
             </div>
           </div>

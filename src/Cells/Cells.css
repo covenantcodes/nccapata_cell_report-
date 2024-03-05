@@ -91,11 +91,24 @@
 .modal-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   padding: 2rem;
   background-color: white;
   border-radius: 0.8rem;
+}
+
+.close-modal-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.modal-top {
+  text-align: center;
 }
 
 .loading-modal {
@@ -112,4 +125,10 @@
 
 .error-gif {
   width: 15%;
+}
+
+.custom-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
