@@ -12,6 +12,7 @@ import Disciples from "./Disciples/Disciples";
 import Profile from "./Profile/Profile";
 import Register from "./auth/Signup";
 import Dashboard from "./Dashboard/Dashboard";
+import CellsDetailed from "./Cells/CellsDetailed";
 import SideBar from "./Custom/Sidebar/Sidebar";
 import AuthService from "./services/auth.service";
 
@@ -79,6 +80,11 @@ const App = () => {
         <Route
           path="/SideBar"
           element={isAuthenticated ? <SideBar /> : <Navigate to="/Login" />}
+        />
+
+        <Route
+          path="/CellsDetailed"
+          element={isAuthenticated ? <CellsDetailed/> : <Navigate to="/Login"/>}
         />
       </Routes>
     </Router>

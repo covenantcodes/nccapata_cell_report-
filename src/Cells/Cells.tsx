@@ -9,6 +9,7 @@ import CustomButton from "../Custom/Button/CustomButton";
 import CellService, { CellData } from "../services/cell.service";
 import loadingGif from "../../img/loader.gif";
 import networkGif from "../../img/network.gif";
+import { useNavigate } from "react-router-dom";
 
 interface CellProps {
   userId: string;
@@ -111,6 +112,12 @@ const Cells: React.FC<CellProps> = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleCellClick = () => {
+    navigate("/CellsDetailed");
+  };
+
   return (
     <div className="cells-main-container">
       <SideBar />
@@ -134,7 +141,11 @@ const Cells: React.FC<CellProps> = () => {
           <div className="cells-box-container">
             {/* Map through cells and display each cell */}
             {cells.map((cell, index) => (
-              <div key={cell.name + index} className="cells-box">
+              <div
+                key={cell.name + index}
+                className="cells-box"
+                onClick={handleCellClick}
+              >
                 <div className="cells-title">{cell.name}</div>
 
                 <div className="cells-type">Cell Type: {cell.type}</div>
@@ -162,8 +173,10 @@ const Cells: React.FC<CellProps> = () => {
           <div className="modal-form">
             <div className="close-modal-button">
               {" "}
-              <CloseIcon fontSize="large" className="close-button"
-                onClick={()=> closeModal()}
+              <CloseIcon
+                fontSize="large"
+                className="close-button"
+                onClick={() => closeModal()}
               />
             </div>
             <div className="modal-top">
