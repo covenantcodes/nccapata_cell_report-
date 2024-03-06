@@ -137,7 +137,20 @@
 
 .cells-detailed-container {
   position: relative;
-  width: 80%;
-  padding: 1rem;
+  width: 78.6%;
+  padding: 2rem;
   margin-left: 17%;
+}
+
+.disciples-table-container {
+  padding: 1rem 1rem;
+  font-family: var(--main-font);
+}
+
+.disciples-table-head {
+  background-color: var(--primary-color);
+}
+
+.disciples-table-head-text {
+  color: white;
 }
