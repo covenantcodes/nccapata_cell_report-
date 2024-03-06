@@ -7,10 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
 import loadingGif from "../../img/loader.gif";
 
-const Login = () => {
+
+interface LoginProps {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
   const [isEye, setIsEye] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,15 +42,16 @@ const Login = () => {
 
     setMessage(message);
 
-    setIsLoading(true); // Show loading indicator when login button is pressed
+    setIsLoading(true);
 
     AuthService.login(username, password).then(
       () => {
-        setIsLoading(false); // Hide loading indicator on successful login
+        setIsLoading(false);
+        setIsAuthenticated(true);
         navigate("/Dashboard");
       },
       (error) => {
-        setIsLoading(false); // Hide loading indicator on login error
+        setIsLoading(false);
 
         const resMessage =
           (error.response &&
