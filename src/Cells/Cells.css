@@ -28,7 +28,6 @@
   border-radius: 0.8rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   cursor: pointer;
-  
 }
 
 .cells-box:hover {
@@ -132,4 +131,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Cells Detailed Styles */
+
+.cells-detailed-container {
+  position: relative;
+  width: 80%;
+  padding: 1rem;
+  margin-left: 17%;
 }

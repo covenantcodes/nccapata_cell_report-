@@ -114,9 +114,10 @@ const Cells: React.FC<CellProps> = () => {
 
   const navigate = useNavigate();
 
-  const handleCellClick = () => {
-    navigate("/CellsDetailed");
+  const handleCellClick = (cell: CellData) => {
+    navigate("/CellsDetailed", { state: { cell } });
   };
+  
 
   return (
     <div className="cells-main-container">
@@ -144,7 +145,7 @@ const Cells: React.FC<CellProps> = () => {
               <div
                 key={cell.name + index}
                 className="cells-box"
-                onClick={handleCellClick}
+                onClick={() => handleCellClick(cell)}
               >
                 <div className="cells-title">{cell.name}</div>
 
