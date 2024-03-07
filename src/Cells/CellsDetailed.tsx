@@ -123,6 +123,8 @@ const CellsDetailed = () => {
       const data = await response.json();
       console.log("New disciple created:", data);
       closeModal();
+       // Fetch the updated list of disciples from the server
+       fetchDisciples();
     } catch (error) {
       console.error("Error creating new disciple:", error);
     }
@@ -144,7 +146,7 @@ const CellsDetailed = () => {
         console.error("Selected disciple or its ID is undefined.");
         return;
       }
-
+  
       const response = await fetch(
         `http://localhost:8080/api/disciples/${selectedDisciple._id}`,
         {
@@ -162,11 +164,18 @@ const CellsDetailed = () => {
       );
       const data = await response.json();
       console.log("Disciple updated:", data);
-      closeModal();
+      
+      // Close the edit modal after successfully updating the disciple
+      closeEditModal();
+  
+      // Fetch the updated list of disciples from the server
+      fetchDisciples();
     } catch (error) {
       console.error("Error updating disciple:", error);
     }
   };
+  
+  
 
   const deleteDisciple = async (id: string) => {
     try {
