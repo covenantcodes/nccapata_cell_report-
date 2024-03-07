@@ -104,6 +104,9 @@ const Cells: React.FC<CellProps> = () => {
           type: "Generic",
           location: "",
         });
+
+         // Fetch the updated list of disciples from the server
+      fetchCellsByUserId();
       } else {
         console.error("No cell data returned");
       }
