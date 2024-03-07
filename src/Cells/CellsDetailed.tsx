@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideBar from "../Custom/Sidebar/Sidebar";
 import { useLocation } from "react-router-dom";
 import CustomButton from "../Custom/Button/CustomButton";
@@ -20,6 +20,13 @@ import {
   tableCellClasses,
   styled,
 } from "@mui/material";
+
+interface Disciple {
+  _id: string;
+  name: string;
+  level: string;
+  ownerCell: string;
+}
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -52,6 +59,33 @@ const CellsDetailed = () => {
   const { cell } = location.state;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [disciples, setDisciples] = useState<Disciple[]>([]);
+  const [discipleData, setDiscipleData] = useState({
+    name: "",
+    level: "New Disciples",
+  });
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedDisciple, setSelectedDisciple] = useState<Disciple | null>(
+    null
+  );
+
+  useEffect(() => {
+    fetchDisciples();
+  }, []); // Fetch disciples when component mounts
+
+  const fetchDisciples = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/disciples");
+      const data = await response.json();
+      // Filter disciples based on ownerCell
+      const cellDisciples = data.filter(
+        (disciple: Disciple) => disciple.ownerCell === cell._id
+      );
+      setDisciples(cellDisciples);
+    } catch (error) {
+      console.error("Error fetching disciples:", error);
+    }
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -60,11 +94,6 @@ const CellsDetailed = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  const [discipleData, setDiscipleData] = useState({
-    name: "",
-    level: "New Disciples",
-  });
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -99,23 +128,45 @@ const CellsDetailed = () => {
     }
   };
 
-  const disciples = [
-    { id: 1, name: "Disciple 1", level: "New Disciples" },
-    { id: 2, name: "Disciple 2", level: "School of Leaders" },
-    { id: 3, name: "Disciple 3", level: "School of Leaders" },
-    { id: 4, name: "Disciple 4", level: "School of Leaders" },
-    { id: 5, name: "Disciple 5", level: "School of Leaders" },
-    { id: 6, name: "Disciple 6", level: "School of Leaders" },
-    { id: 7, name: "Disciple 7", level: "School of Leaders" },
-    { id: 8, name: "Disciple 8", level: "School of Leaders" },
-    { id: 9, name: "Disciple 9", level: "School of Leaders" },
-    { id: 10, name: "Disciple 10", level: "School of Leaders" },
-    { id: 11, name: "Disciple 11", level: "School of Leaders" },
-    { id: 12, name: "Disciple 12", level: "School of Leaders" },
-    { id: 13, name: "Disciple 13", level: "School of Leaders" },
-    { id: 14, name: "Disciple 14", level: "School of Leaders" },
-    { id: 15, name: "Disciple 15", level: "School of Leaders" },
-  ];
+  const openEditModal = (disciple: Disciple) => {
+    setSelectedDisciple(disciple);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setDiscipleData({ name: "", level: "New Disciples" });
+    setIsEditModalOpen(false);
+  };
+
+  const updateDisciple = async () => {
+    try {
+      if (!selectedDisciple || !selectedDisciple._id) {
+        console.error("Selected disciple or its ID is undefined.");
+        return;
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/api/disciples/${selectedDisciple._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id: selectedDisciple._id, // Include _id field in the request body
+            name: selectedDisciple.name,
+            level: selectedDisciple.level,
+            ownerCell: selectedDisciple.ownerCell,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log("Disciple updated:", data);
+      closeModal();
+    } catch (error) {
+      console.error("Error updating disciple:", error);
+    }
+  };
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -134,8 +185,7 @@ const CellsDetailed = () => {
   return (
     <div className="cells-detailed-container">
       <SideBar />
-      <div className="page-title">{cell.name}</div>
-
+      <div className="page-title detailed">{cell.name}</div>
       <div className="disciples-table-container">
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
@@ -151,11 +201,11 @@ const CellsDetailed = () => {
                 {disciples
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((disciple) => (
-                    <StyledTableRow key={disciple.id}>
+                    <StyledTableRow key={disciple._id}>
                       <StyledTableCell>{disciple.name}</StyledTableCell>
                       <StyledTableCell>{disciple.level}</StyledTableCell>
                       <StyledTableCell>
-                        <IconButton>
+                        <IconButton onClick={() => openEditModal(disciple)}>
                           <EditIcon />
                         </IconButton>
                         <IconButton>
@@ -178,11 +228,9 @@ const CellsDetailed = () => {
           />
         </Paper>
       </div>
-
       <div className="add-cell-box" onClick={openModal}>
         <AddCircleIcon fontSize="large" />
       </div>
-
       <Modal open={isModalOpen} onClose={closeModal}>
         <div className="modal-container">
           <div className="modal-form">
@@ -240,6 +288,79 @@ const CellsDetailed = () => {
               </div>
             </div>
           </div>
+        </div>
+      </Modal>
+      {/* Render edit modal */}
+      <Modal open={isEditModalOpen} onClose={closeEditModal}>
+        <div className="modal-container">
+          {/* Modal content for editing disciple details */}
+          {selectedDisciple && (
+            <div className="modal-form">
+              <div className="close-modal-button">
+                <CloseIcon
+                  fontSize="large"
+                  className="close-button"
+                  onClick={closeEditModal}
+                />
+              </div>
+              <div className="modal-top">
+                <div className="page-title">Edit Disciple</div>
+              </div>
+              <div>
+                <div>
+                  <div className="password-input-container custom-input">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      className="modal-input"
+                      value={selectedDisciple.name}
+                      onChange={(e) =>
+                        setSelectedDisciple({
+                          ...selectedDisciple,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="password-input-container custom-input">
+                    <select
+                      name="type"
+                      value={selectedDisciple.level}
+                      onChange={(e) =>
+                        setSelectedDisciple({
+                          ...selectedDisciple,
+                          level: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="Consolidation">Consolidation</option>
+                      <option value="School of Leaders">
+                        School of Leaders
+                      </option>
+                      <option value="New Disciples">New Disciples</option>
+                    </select>
+                  </div>
+                  <div className="custom-button-container">
+                    <CustomButton
+                      border="none"
+                      color="white"
+                      padding="1rem"
+                      radius="5px"
+                      label="Update Disciple"
+                      bgcolor="var(--primary-color)"
+                      width="320px"
+                      fontFamily="var(--main-font)"
+                      fontSize="1rem"
+                      marginTop="1rem"
+                      cursor="pointer"
+                      onClick={() => selectedDisciple && updateDisciple()}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

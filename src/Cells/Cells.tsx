@@ -117,7 +117,6 @@ const Cells: React.FC<CellProps> = () => {
   const handleCellClick = (cell: CellData) => {
     navigate("/CellsDetailed", { state: { cell } });
   };
-  
 
   return (
     <div className="cells-main-container">
