@@ -168,6 +168,26 @@ const CellsDetailed = () => {
     }
   };
 
+  const deleteDisciple = async (id: string) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/disciples/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        // Remove the deleted disciple from the local state
+        setDisciples((prevDisciples) =>
+          prevDisciples.filter((disciple) => disciple._id !== id)
+        );
+        console.log("Disciple deleted successfully");
+      } else {
+        console.error("Failed to delete disciple");
+      }
+    } catch (error) {
+      console.error("Error deleting disciple:", error);
+    }
+  };
+  
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -208,7 +228,7 @@ const CellsDetailed = () => {
                         <IconButton onClick={() => openEditModal(disciple)}>
                           <EditIcon />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={() => deleteDisciple(disciple._id)}>
                           <DeleteIcon />
                         </IconButton>
                       </StyledTableCell>
