@@ -14,6 +14,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PersonIcon from "@mui/icons-material/Person";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../../services/auth.service";
 
 interface MenuItemStyles {
   root?: ElementStyles;
@@ -33,9 +34,44 @@ type ElementStyles =
 const SideBar = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    navigate("/login");
+  // const handleLogout = () => {
+  //   const accessToken = localStorage.getItem("accessToken");
+
+  //   // Check if access token exists
+  //   if (!accessToken) {
+  //     console.error("Access token not found");
+  //     return;
+  //   }
+
+  //   // Include the access token in the request headers
+  //   const config = {
+  //     headers: {
+  //       Authorization: "x-access-token",
+  //     },
+  //   };
+
+  //   axios
+  //     .post(API_URL + "signout", {}, config)
+  //     .then(() => {
+  //       // Clear local storage or session storage
+  //       localStorage.removeItem("accessToken");
+  //       localStorage.removeItem("user");
+  //       navigate("/login");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error logging out:", error);
+  //     });
+  // };
+
+  const handleLogout = async () => {
+    try {
+      await AuthService.logout();
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

@@ -43,8 +43,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const Disciples = () => {
-  const [disciples, setDisciples] = useState<{ id: number; name: string; level: string }[]>([]);
-
+  const [disciples, setDisciples] = useState<
+    { id: number; name: string; level: string }[]
+  >([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchDisciples();
@@ -52,7 +55,15 @@ const Disciples = () => {
 
   const fetchDisciples = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/disciples");
+      const userId = getUserId(); // Retrieve user ID from storage
+      const response = await fetch(
+        `http://localhost:8080/api/disciples/createdBy/${userId}`
+      );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch disciples: ${response.status} ${response.statusText}`
+        );
+      }
       const data = await response.json();
       setDisciples(data);
     } catch (error) {
@@ -60,9 +71,14 @@ const Disciples = () => {
     }
   };
 
-
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const getUserId = () => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const userData = JSON.parse(user);
+      return userData.id;
+    }
+    return ""; // Return default value if user data not found
+  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -83,31 +99,32 @@ const Disciples = () => {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
-              <TableHead className="disciples-table-head">
-                <StyledTableRow className="disciples-table-head">
+              <TableHead>
+                <StyledTableRow>
                   <StyledTableCell>Name</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {disciples
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((disciple) => (
-                    <StyledTableRow key={disciple.id}>
-                      <StyledTableCell>{disciple.name}</StyledTableCell>
-                      <StyledTableCell>{disciple.level}</StyledTableCell>
-                      <StyledTableCell>
-                        <IconButton>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton>
-                          <DeleteIcon />
-                        </IconButton>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-              </TableBody>
+  {disciples
+    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    .map((disciple) => (
+      <StyledTableRow key={disciple.id}>
+        <StyledTableCell>{disciple.name}</StyledTableCell>
+        <StyledTableCell>{disciple.level}</StyledTableCell>
+        <StyledTableCell>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </StyledTableCell>
+      </StyledTableRow>
+    ))}
+</TableBody>
+
             </Table>
           </TableContainer>
           <TablePagination

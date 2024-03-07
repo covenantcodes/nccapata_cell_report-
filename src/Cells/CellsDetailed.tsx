@@ -26,6 +26,7 @@ interface Disciple {
   name: string;
   level: string;
   ownerCell: string;
+  createdBy: string;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -104,8 +105,18 @@ const CellsDetailed = () => {
     });
   };
 
+  const getUserId = () => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const userData = JSON.parse(user);
+      return userData.id;
+    }
+    return ""; 
+  };
+
   const AddNewDisciple = async () => {
     try {
+      const userId = getUserId(); 
       const response = await fetch(
         "http://localhost:8080/api/disciples/create",
         {
@@ -117,14 +128,20 @@ const CellsDetailed = () => {
             name: discipleData.name,
             level: discipleData.level,
             ownerCell: cell._id,
+            createdBy: userId, // Include the user ID of the creator
           }),
         }
       );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to add new disciple: ${response.status} ${response.statusText}`
+        );
+      }
       const data = await response.json();
       console.log("New disciple created:", data);
       closeModal();
-       // Fetch the updated list of disciples from the server
-       fetchDisciples();
+      // Fetch the updated list of disciples from the server
+      fetchDisciples();
     } catch (error) {
       console.error("Error creating new disciple:", error);
     }
@@ -146,7 +163,7 @@ const CellsDetailed = () => {
         console.error("Selected disciple or its ID is undefined.");
         return;
       }
-  
+
       const response = await fetch(
         `http://localhost:8080/api/disciples/${selectedDisciple._id}`,
         {
@@ -164,24 +181,25 @@ const CellsDetailed = () => {
       );
       const data = await response.json();
       console.log("Disciple updated:", data);
-      
+
       // Close the edit modal after successfully updating the disciple
       closeEditModal();
-  
+
       // Fetch the updated list of disciples from the server
       fetchDisciples();
     } catch (error) {
       console.error("Error updating disciple:", error);
     }
   };
-  
-  
 
   const deleteDisciple = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/disciples/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/disciples/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (response.ok) {
         // Remove the deleted disciple from the local state
         setDisciples((prevDisciples) =>
@@ -195,7 +213,6 @@ const CellsDetailed = () => {
       console.error("Error deleting disciple:", error);
     }
   };
-  
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -237,7 +254,9 @@ const CellsDetailed = () => {
                         <IconButton onClick={() => openEditModal(disciple)}>
                           <EditIcon />
                         </IconButton>
-                        <IconButton onClick={() => deleteDisciple(disciple._id)}>
+                        <IconButton
+                          onClick={() => deleteDisciple(disciple._id)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </StyledTableCell>
