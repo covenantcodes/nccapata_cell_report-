@@ -29,6 +29,8 @@ interface Disciple {
   createdBy: string;
 }
 
+const API_URL = "http://localhost:8080/api/";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.info.dark,
@@ -118,7 +120,7 @@ const CellsDetailed = () => {
     try {
       const userId = getUserId(); 
       const response = await fetch(
-        "http://localhost:8080/api/disciples/create",
+        API_URL + "disciples/create",
         {
           method: "POST",
           headers: {
@@ -165,7 +167,7 @@ const CellsDetailed = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8080/api/disciples/${selectedDisciple._id}`,
+        API_URL + `disciples/${selectedDisciple._id}`,
         {
           method: "PUT",
           headers: {
@@ -195,7 +197,7 @@ const CellsDetailed = () => {
   const deleteDisciple = async (id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/disciples/${id}`,
+        API_URL + `disciples/${id}`,
         {
           method: "DELETE",
         }

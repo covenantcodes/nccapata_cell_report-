@@ -32,6 +32,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const API_URL = "http://localhost:8080/api/";
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
@@ -57,7 +59,7 @@ const Disciples = () => {
     try {
       const userId = getUserId(); // Retrieve user ID from storage
       const response = await fetch(
-        `http://localhost:8080/api/disciples/createdBy/${userId}`
+        API_URL + `disciples/createdBy/${userId}`
       );
       if (!response.ok) {
         throw new Error(
